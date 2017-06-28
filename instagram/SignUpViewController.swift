@@ -32,32 +32,27 @@ class SignUpViewController: UIViewController {
     
     
     @IBAction func didSignUp(_ sender: Any) {
-        if (emailField.text?.isEmpty)! {
-            print("need email")
-        } else if (usernameField.text?.isEmpty)! {
-            print("need username")
-        } else if (passwordField.text?.isEmpty)! {
-            print("need password")
-        } else {
-            let newUser = PFUser()
-            
-            newUser.email = emailField.text!
-            newUser.username = usernameField.text!
-            newUser.password = passwordField.text!
-            
-            newUser.signUpInBackground { (success: Bool, error: Error?) in
-                if success {
-                    print("Yay!! Created a user.")
-                    self.performSegue(withIdentifier: "loginSegue", sender: nil)
-                } else {
-                    print(error?.localizedDescription)
-                }
+        let newUser = PFUser()
+        
+        newUser.email = emailField.text!
+        newUser.username = usernameField.text!
+        newUser.password = passwordField.text!
+        
+        newUser.signUpInBackground { (success: Bool, error: Error?) in
+            if success {
+                print("Yay!! Created a user.")
+                self.performSegue(withIdentifier: "loginFromSignUpSegue", sender: nil)
+                
+            } else if let error = error {
+                print(error.localizedDescription)
             }
-
         }
     }
     
     
+    @IBAction func didDismiss(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     
     

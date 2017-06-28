@@ -1,5 +1,5 @@
 //
-//  SignedInViewController.swift
+//  ProfileViewController.swift
 //  instagram
 //
 //  Created by Skyler Ruesga on 6/28/17.
@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import Parse
 
-class SignedInViewController: UIViewController {
+class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +21,19 @@ class SignedInViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    @IBAction func didLogout(_ sender: Any) {
+        PFUser.logOutInBackground { (error: Error?) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+                self.present(loginViewController, animated: true, completion: nil)
+            }
+        }
+    }
+
     
 
     /*

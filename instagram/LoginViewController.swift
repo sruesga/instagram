@@ -29,18 +29,15 @@ class LoginViewController: UIViewController {
     
     
     @IBAction func didLogin(_ sender: Any) {
-        if (usernameField.text?.isEmpty)! {
-           print("need username")
-        } else if (passwordField.text?.isEmpty)! {
-            print("need password")
-        } else {
-            PFUser.logInWithUsername(inBackground: usernameField.text!, password: passwordField.text!) { (user: PFUser?, error: Error?) in
-                if let error = error {
-                    print(error.localizedDescription)
-                } else {
-                    print("Successful login!")
-                    self.performSegue(withIdentifier: "loginSegue", sender: nil)
-                }
+        let username = usernameField.text ?? ""
+        let password = passwordField.text ?? ""
+        
+        PFUser.logInWithUsername(inBackground: username, password: password) { (user: PFUser?, error: Error?) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                print("Successful login!")
+                self.performSegue(withIdentifier: "loginSegue", sender: nil)
             }
         }
     }
