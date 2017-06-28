@@ -1,18 +1,21 @@
 //
-//  LoginViewController.swift
+//  SignUpViewController.swift
 //  instagram
 //
-//  Created by Skyler Ruesga on 6/27/17.
+//  Created by Skyler Ruesga on 6/28/17.
 //  Copyright © 2017 Skyler Ruesga. All rights reserved.
 //
 
 import UIKit
 import Parse
 
-class LoginViewController: UIViewController {
+class SignUpViewController: UIViewController {
     
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var emailField: UITextField!
+    
+    
     
     
     override func viewDidLoad() {
@@ -28,22 +31,38 @@ class LoginViewController: UIViewController {
     
     
     
-    @IBAction func didLogin(_ sender: Any) {
-        if (usernameField.text?.isEmpty)! {
-           print("need username")
+    @IBAction func didSignUp(_ sender: Any) {
+        if (emailField.text?.isEmpty)! {
+            print("need email")
+        } else if (usernameField.text?.isEmpty)! {
+            print("need username")
         } else if (passwordField.text?.isEmpty)! {
             print("need password")
         } else {
-            PFUser.logInWithUsername(inBackground: usernameField.text!, password: passwordField.text!) { (user: PFUser?, error: Error?) in
-                if let error = error {
-                    print(error.localizedDescription)
-                } else {
-                    print("Successful login!")
+            let newUser = PFUser()
+            
+            newUser.email = emailField.text!
+            newUser.username = usernameField.text!
+            newUser.password = passwordField.text!
+            
+            newUser.signUpInBackground { (success: Bool, error: Error?) in
+                if success {
+                    print("Yay!! Created a user.")
                     self.performSegue(withIdentifier: "loginSegue", sender: nil)
+                } else {
+                    print(error?.localizedDescription)
                 }
             }
+
         }
     }
+    
+    
+    
+    
+    
+    
+    
     
     
     /*

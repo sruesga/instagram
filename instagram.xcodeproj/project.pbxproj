@@ -9,8 +9,9 @@
 /* Begin PBXBuildFile section */
 		07CF2E71D9061D820973E3F1 /* Pods_instagramTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F4D3E82B55B8EA1D46433C /* Pods_instagramTests.framework */; };
 		4FC8A3421F03272F0014AC64 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC8A3411F03272F0014AC64 /* LoginViewController.swift */; };
+		4FC8A3451F0421BF0014AC64 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC8A3441F0421BF0014AC64 /* SignUpViewController.swift */; };
+		4FC8A3471F0422620014AC64 /* SignedInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC8A3461F0422620014AC64 /* SignedInViewController.swift */; };
 		4FF626AB1F03241100224107 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF626AA1F03241100224107 /* AppDelegate.swift */; };
-		4FF626AD1F03241100224107 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF626AC1F03241100224107 /* ViewController.swift */; };
 		4FF626B01F03241100224107 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4FF626AE1F03241100224107 /* Main.storyboard */; };
 		4FF626B21F03241100224107 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FF626B11F03241100224107 /* Assets.xcassets */; };
 		4FF626B51F03241100224107 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4FF626B31F03241100224107 /* LaunchScreen.storyboard */; };
@@ -43,9 +44,10 @@
 		2FBB1AF670387F401B9F899B /* Pods-instagram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-instagram.debug.xcconfig"; path = "Pods/Target Support Files/Pods-instagram/Pods-instagram.debug.xcconfig"; sourceTree = "<group>"; };
 		47F4D3E82B55B8EA1D46433C /* Pods_instagramTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_instagramTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FC8A3411F03272F0014AC64 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		4FC8A3441F0421BF0014AC64 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		4FC8A3461F0422620014AC64 /* SignedInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignedInViewController.swift; sourceTree = "<group>"; };
 		4FF626A71F03241100224107 /* instagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = instagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FF626AA1F03241100224107 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4FF626AC1F03241100224107 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4FF626AF1F03241100224107 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4FF626B11F03241100224107 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4FF626B41F03241100224107 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -95,6 +97,8 @@
 			isa = PBXGroup;
 			children = (
 				4FC8A3411F03272F0014AC64 /* LoginViewController.swift */,
+				4FC8A3441F0421BF0014AC64 /* SignUpViewController.swift */,
+				4FC8A3461F0422620014AC64 /* SignedInViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -126,7 +130,6 @@
 			children = (
 				4FC8A3431F0327330014AC64 /* ViewControllers */,
 				4FF626AA1F03241100224107 /* AppDelegate.swift */,
-				4FF626AC1F03241100224107 /* ViewController.swift */,
 				4FF626AE1F03241100224107 /* Main.storyboard */,
 				4FF626B11F03241100224107 /* Assets.xcassets */,
 				4FF626B31F03241100224107 /* LaunchScreen.storyboard */,
@@ -458,8 +461,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4FC8A3421F03272F0014AC64 /* LoginViewController.swift in Sources */,
-				4FF626AD1F03241100224107 /* ViewController.swift in Sources */,
+				4FC8A3451F0421BF0014AC64 /* SignUpViewController.swift in Sources */,
 				4FF626AB1F03241100224107 /* AppDelegate.swift in Sources */,
+				4FC8A3471F0422620014AC64 /* SignedInViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
