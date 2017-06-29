@@ -54,7 +54,9 @@ class SignUpViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    
+    @IBAction func didTapOutsideTextField(_ sender: Any) {
+        view.endEditing(true)
+    }
     
     
     

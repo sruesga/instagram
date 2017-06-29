@@ -10,12 +10,12 @@ import UIKit
 import CameraManager
 
 
-class CameraViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class CameraViewController: UIViewController, UINavigationControllerDelegate {
 
     @IBOutlet weak var cameraView: UIView!
     
     var cameraManager: CameraManager!
-    var myImage: UIImage?
+    var myImage: UIImage!
 
     
     
@@ -28,26 +28,18 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         cameraManager = CameraManager()
         cameraManager.addPreviewLayerToView(self.cameraView)
-        cameraManager.shouldFlipFrontCameraImage = true
         cameraManager.shouldEnableTapToFocus = true
         cameraManager.shouldEnablePinchToZoom = true
-        cameraManager.cameraOutputMode = .stillImage
-        cameraManager.cameraOutputQuality = .high
-        cameraManager.focusMode = .continuousAutoFocus
-        cameraManager.exposureMode = .continuousAutoExposure
-        cameraManager.flashMode = .auto
-        cameraManager.writeFilesToPhoneLibrary = true
-        cameraManager.animateShutter = false
-        cameraManager.animateCameraDeviceChange = false
         
-
-        cameraManager.capturePictureWithCompletion { (image: UIImage?, error: Error?) in
-            if let image = image {
-                self.myImage = image
-            } else {
-                print(error?.localizedDescription)
-            }
-        }
+//        cameraManager.cameraOutputMode = .stillImage
+//        cameraManager.cameraOutputQuality = .high
+//        cameraManager.focusMode = .continuousAutoFocus
+//        cameraManager.exposureMode = .continuousAutoExposure
+//        cameraManager.flashMode = .auto
+//        cameraManager.writeFilesToPhoneLibrary = true
+//        cameraManager.animateShutter = false
+//        cameraManager.animateCameraDeviceChange = false
+    
         
         
         
@@ -73,26 +65,33 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     
     @IBAction func didTakePhoto(_ sender: Any) {
-        self.performSegue(withIdentifier: "PreparePostSegue", sender: self)
+        cameraManager.capturePictureWithCompletion { (image: UIImage?, error: Error?) in
+            if let image = image {
+                self.myImage = image
+                self.performSegue(withIdentifier: "PreparePostSegue", sender: self)
+            } else {
+                print(error?.localizedDescription)
+            }
+        }
     }
     
     
     
     
-    
-    func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [String : Any]) {
-        // Get the image captured by the UIImagePickerController
-        let originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-        let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
-        
-        // Do something with the images (based on your use case)
-//        imageToPost.image = editedImage
-        
-        // Dismiss UIImagePickerController to go back to your original view controller
-        dismiss(animated: true, completion: nil)
-    }
-    
+//    
+//    func imagePickerController(_ picker: UIImagePickerController,
+//                               didFinishPickingMediaWithInfo info: [String : Any]) {
+//        // Get the image captured by the UIImagePickerController
+//        let originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+//        let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
+//        
+//        // Do something with the images (based on your use case)
+////        imageToPost.image = editedImage
+//        
+//        // Dismiss UIImagePickerController to go back to your original view controller
+//        dismiss(animated: true, completion: nil)
+//    }
+//    
 
     
 
@@ -106,9 +105,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         
-        let nav = segue.destination as! UINavigationController
-        let vc = nav.viewControllers[0] as! PreparePostViewController
-        vc.imageToPost.image = self.myImage
-        self.myImage = nil
+        let vc = segue.destination as! PreparePostViewController
+        vc.image = self.myImage
     }
 }

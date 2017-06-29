@@ -43,6 +43,13 @@ class LoginViewController: UIViewController {
     }
     
     
+    @IBAction func didTapOutsideTextField(_ sender: Any) {
+        view.endEditing(true)
+    }
+    
+    
+    
+    
     /*
      // MARK: - Navigation
      

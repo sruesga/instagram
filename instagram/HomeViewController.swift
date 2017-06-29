@@ -13,6 +13,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     @IBOutlet weak var tableView: UITableView!
     
+    static var newPost = false
     
     var posts: [PFObject] = []
     var refreshControl: UIRefreshControl!
@@ -30,6 +31,13 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
         tableView.insertSubview(refreshControl, at: 0)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if HomeViewController.newPost {
+            self.loadData()
+            HomeViewController.newPost = false
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -52,13 +60,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     
-    func loadData(withLimit limit: Int? = nil) {
+    func loadData(withLimit limit: Int = 10) {
         let query = PFQuery(className: "Post")
         query.order(byDescending: "createdAt")
         query.includeKey("author")
-        if let limit = limit {
-            query.limit = limit
-        }
+        query.limit = limit
         
         // fetch data asynchronously
         query.findObjectsInBackground { (posts: [PFObject]?, error: Error?) in

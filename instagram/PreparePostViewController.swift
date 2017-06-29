@@ -13,12 +13,13 @@ class PreparePostViewController: UIViewController {
     @IBOutlet weak var imageToPost: UIImageView!
     @IBOutlet weak var captionToPost: UITextField!
     
-    
+    var image: UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        imageToPost.image = self.image
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,16 +35,26 @@ class PreparePostViewController: UIViewController {
             } else if success {
                 self.imageToPost.image = nil
                 self.captionToPost.text = nil
- 
-                let nav = self.tabBarController?.viewControllers?[0] as! UINavigationController
-                let vc = nav.viewControllers[0] as! HomeViewController
-                vc.loadData()
-                self.tabBarController?.selectedViewController = nav
+                print("posting")
+                
+                HomeViewController.newPost = true
+                self.tabBarController!.selectedIndex = 0
+                let nav = self.navigationController!
+                nav.popViewController(animated: true)
+                
+//                let tab = self.navigationController as! UINavigationController
+//                let vc = nav.tabBarController?.viewControllers?[0] as! HomeViewController
+//                vc.loadData()
+//                nav.tabBarController?.selectedIndex = 0
+//                print("posted")
             }
         }
     }
     
     
+    @IBAction func didTapOutsideCaption(_ sender: Any) {
+        view.endEditing(true)
+    }
     
     
     /*
