@@ -283,7 +283,6 @@
                     <connections>
                         <outlet property="captionToPost" destination="kLj-v3-naO" id="DD5-JY-nad"/>
                         <outlet property="imageToPost" destination="672-DC-4dB" id="yBR-KI-1NL"/>
-                        <segue destination="xdG-YI-Qav" kind="show" identifier="HomeTabSegue" id="Hgg-Ao-scd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pqa-Ve-rgN" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -351,6 +350,5 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="S6q-jS-aZL"/>
-        <segue reference="P4B-vg-ybf"/>
     </inferredMetricsTieBreakers>
 </document>

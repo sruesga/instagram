@@ -13,6 +13,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     @IBOutlet weak var tableView: UITableView!
     
+    static var postButtonHit = false
+    
     
     var posts: [PFObject] = []
     var refreshControl: UIRefreshControl!
@@ -37,6 +39,13 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if HomeViewController.postButtonHit {
+            self.loadData()
+            HomeViewController.postButtonHit = false
+        }
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
@@ -50,6 +59,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
         return cell
     }
+    
     
     func loadData(withLimit limit: Int? = nil) {
         let query = PFQuery(className: "Post")

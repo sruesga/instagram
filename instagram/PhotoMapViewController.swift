@@ -47,7 +47,10 @@ class PhotoMapViewController: UIViewController, UIImagePickerControllerDelegate,
             } else if success {
                 self.imageToPost.image = nil
                 self.captionToPost.text = nil
-                self.performSegue(withIdentifier: "HomeTabSegue", sender: self)
+ 
+                let nav = self.tabBarController?.viewControllers?[0]
+                HomeViewController.postButtonHit = true
+                self.tabBarController?.selectedViewController = nav
             }
         }
     }
@@ -67,14 +70,13 @@ class PhotoMapViewController: UIViewController, UIImagePickerControllerDelegate,
     }
     
     
-    
+    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        let vc = segue.destination as! HomeViewController
-        vc.loadData()
-    }
+  
+    }*/
 }
