@@ -16,16 +16,16 @@ class PostCell: UITableViewCell {
     @IBOutlet weak var topUsernameLabel: UILabel!
     @IBOutlet weak var captionUsernameLabel: UILabel!
     @IBOutlet weak var captionLabel: UILabel!
-    @IBOutlet weak var postedImage: UIImageView!
+    @IBOutlet weak var postedImage: PFImageView!
     
     
     var instagramPost: PFObject! {
         didSet {
-            self.postedImage.file = instagramPost["image"] as? PFFile
+            self.postedImage.file = instagramPost["media"] as! PFFile
             self.postedImage.loadInBackground()
-            self.topUsernameLabel.text = instagramPost["author"]
-            self.captionUsernameLabel.text = instagramPost["author"]
-            self.captionLabel.text = instagramPost["caption"]
+            self.topUsernameLabel.text = (instagramPost["author"] as! PFUser).username!
+            self.captionUsernameLabel.text = topUsernameLabel.text
+            self.captionLabel.text = instagramPost["caption"] as? String
         }
     }
     
@@ -34,11 +34,4 @@ class PostCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }

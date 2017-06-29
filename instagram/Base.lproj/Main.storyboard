@@ -206,6 +206,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="CtN-hn-ojU"/>
+                    <connections>
+                        <outlet property="tableView" destination="z9P-7P-JTm" id="NYG-pT-LtP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bZb-Cc-IF4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -280,7 +283,7 @@
                     <connections>
                         <outlet property="captionToPost" destination="kLj-v3-naO" id="DD5-JY-nad"/>
                         <outlet property="imageToPost" destination="672-DC-4dB" id="yBR-KI-1NL"/>
-                        <segue destination="xdG-YI-Qav" kind="show" identifier="HomeTabSegue" id="Y9s-4q-oqV"/>
+                        <segue destination="xdG-YI-Qav" kind="show" identifier="HomeTabSegue" id="Hgg-Ao-scd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pqa-Ve-rgN" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -348,6 +351,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="S6q-jS-aZL"/>
-        <segue reference="Y9s-4q-oqV"/>
+        <segue reference="P4B-vg-ybf"/>
     </inferredMetricsTieBreakers>
 </document>

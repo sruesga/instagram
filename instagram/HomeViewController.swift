@@ -11,6 +11,9 @@ import Parse
 
 class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate {
     
+    @IBOutlet weak var tableView: UITableView!
+    
+    
     var posts: [PFObject] = []
     var refreshControl: UIRefreshControl!
     var isMoreDataLoading = false
@@ -20,31 +23,13 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
         // Do any additional setup after loading the view.
         tableView.delegate = self
+        tableView.dataSource = self
         
-        var query = PFQuery(className: "Post")
-        query.orderByDescending("createdAt")
-        query.includeKey("author")
-        query.limit = 20
-        
-        // fetch data asynchronously
-        query.findObjectsInBackgroundWithBlock { (posts: [PFObject]?, error: NSError?) -> Void in
-            if let posts = posts {
-                // do something with the data fetched
-                self.posts = posts
-                tableView.reloadData()
-            } else {
-                // handle error
-                print(error?.localizedDescription)
-            }
-        }
-        
+        loadData()
 
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
         tableView.insertSubview(refreshControl, at: 0)
-
-        
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,40 +38,64 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
     }
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as! PostCell
         
         let post = posts[indexPath.row]
-        
         cell.instagramPost = post
-        
+
         return cell
     }
     
-    
-    func refreshControlAction(_ refreshControl: UIRefreshControl) {
-        
-        // ... Create the URLRequest `myRequest` ...
-        
-        // Configure session so that completion handler is executed on main UI thread
-        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
-        let task: URLSessionDataTask = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-            
-            // ... Use the new data to update the data source ...
-            
-            // Reload the tableView now that there is new data
-            myTableView.reloadData()
-            
-            // Tell the refreshControl to stop spinning
-            refreshControl.endRefreshing()
+    func loadData(withLimit limit: Int? = nil) {
+        let query = PFQuery(className: "Post")
+        query.order(byDescending: "createdAt")
+        query.includeKey("author")
+        if let limit = limit {
+            query.limit = limit
         }
-        task.resume()
+        
+        // fetch data asynchronously
+        query.findObjectsInBackground { (posts: [PFObject]?, error: Error?) in
+            if let posts = posts {
+                // do something with the data fetched
+                self.posts = posts
+                self.tableView.reloadData()
+                self.refreshControl.endRefreshing()
+                self.isMoreDataLoading = false
+            } else {
+                // handle error
+                print(error?.localizedDescription)
+            }
+        }
+
     }
     
+    func refreshControlAction(_ refreshControl: UIRefreshControl) {
+        refreshControl.beginRefreshing()
+        loadData()
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if (!isMoreDataLoading) {
+            // Calculate the position of one screen length before the bottom of the results
+            let scrollViewContentHeight = tableView.contentSize.height
+            let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
+            
+            // When the user has scrolled past the threshold, start requesting
+            if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.isDragging) {
+                
+                isMoreDataLoading = true
+                
+                // Code to load more results
+                loadData()
+            }
+        }
+    }
 
     
     
