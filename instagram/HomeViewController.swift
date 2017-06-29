@@ -9,14 +9,17 @@
 import UIKit
 import Parse
 
-class HomeViewController: UIViewController, UITableViewDataSource {
+class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate {
     
     var posts: [PFObject] = []
+    var refreshControl: UIRefreshControl!
+    var isMoreDataLoading = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        tableView.delegate = self
         
         var query = PFQuery(className: "Post")
         query.orderByDescending("createdAt")
@@ -28,11 +31,20 @@ class HomeViewController: UIViewController, UITableViewDataSource {
             if let posts = posts {
                 // do something with the data fetched
                 self.posts = posts
+                tableView.reloadData()
             } else {
                 // handle error
                 print(error?.localizedDescription)
             }
         }
+        
+
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
+        tableView.insertSubview(refreshControl, at: 0)
+
+        
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,6 +65,26 @@ class HomeViewController: UIViewController, UITableViewDataSource {
         cell.instagramPost = post
         
         return cell
+    }
+    
+    
+    func refreshControlAction(_ refreshControl: UIRefreshControl) {
+        
+        // ... Create the URLRequest `myRequest` ...
+        
+        // Configure session so that completion handler is executed on main UI thread
+        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
+        let task: URLSessionDataTask = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+            
+            // ... Use the new data to update the data source ...
+            
+            // Reload the tableView now that there is new data
+            myTableView.reloadData()
+            
+            // Tell the refreshControl to stop spinning
+            refreshControl.endRefreshing()
+        }
+        task.resume()
     }
     
 

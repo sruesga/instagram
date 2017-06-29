@@ -40,15 +40,15 @@ class PhotoMapViewController: UIViewController, UIImagePickerControllerDelegate,
     
     
     @IBAction func didHitPostButton(_ sender: Any) {
-//        Post.postUserImage(image: editedImage, withCaption: captionToPost.text) { (success: Bool, error: Error?) in
-//            if let error = error {
-//                print(error.localizedDescription)
-//            } else if success {
-//                imageToPost.image = nil
-//                captionToPost.text = nil
-//                self.performSegue(withIdentifier: "HomeTabSegue", sender: sender)
-//            }
-//        }
+        Post.postUserImage(image: editedImage, withCaption: captionToPost.text) { (success: Bool, error: Error?) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else if success {
+                imageToPost.image = nil
+                captionToPost.text = nil
+                self.performSegue(withIdentifier: "HomeTabSegue", sender: sender)
+            }
+        }
     }
     
     
@@ -74,6 +74,7 @@ class PhotoMapViewController: UIViewController, UIImagePickerControllerDelegate,
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        let vc = segue.destinationl
+        let vc = segue.destination as ! HomeViewController
+        vc.refresh()
     }
 }
