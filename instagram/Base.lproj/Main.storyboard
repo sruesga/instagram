@@ -159,7 +159,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="postCell" rowHeight="370" id="bjZ-1D-e7x">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="postCell" rowHeight="370" id="bjZ-1D-e7x" customClass="PostCell" customModule="instagram" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="370"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bjZ-1D-e7x" id="cn9-UY-Qas">
@@ -193,6 +193,12 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="captionLabel" destination="irg-HO-u8C" id="W7n-IV-6s1"/>
+                                            <outlet property="captionUsernameLabel" destination="xDk-d4-YVt" id="riM-ua-QLN"/>
+                                            <outlet property="postedImage" destination="Q9W-1R-9IG" id="GNM-aq-NYl"/>
+                                            <outlet property="topUsernameLabel" destination="5Eh-jP-6Ya" id="nI2-5f-AHK"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -203,7 +209,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bZb-Cc-IF4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="710" y="2045"/>
+            <point key="canvasLocation" x="734" y="2034"/>
         </scene>
         <!--ProfileViewController-->
         <scene sceneID="fQQ-ES-AIa">
@@ -287,6 +293,7 @@
                 <tabBarController storyboardIdentifier="HomeViewController" automaticallyAdjustsScrollViewInsets="NO" id="9Cm-D5-wSh" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="79n-0O-Yah">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
@@ -340,7 +347,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="mEb-9k-jxc"/>
+        <segue reference="S6q-jS-aZL"/>
         <segue reference="Y9s-4q-oqV"/>
     </inferredMetricsTieBreakers>
 </document>

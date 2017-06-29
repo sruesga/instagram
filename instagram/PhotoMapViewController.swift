@@ -40,15 +40,15 @@ class PhotoMapViewController: UIViewController, UIImagePickerControllerDelegate,
     
     
     @IBAction func didHitPostButton(_ sender: Any) {
-        Post.postUserImage(image: editedImage, withCaption: captionToPost.text) { (success: Bool, error: Error?) in
-            if let error = error {
-                print(error.localizedDescription)
-            } else if success {
-                imageToPost.image = nil
-                captionToPost.text = nil
-                self.performSegue(withIdentifier: "HomeTabSegue", sender: sender)
-            }
-        }
+//        Post.postUserImage(image: editedImage, withCaption: captionToPost.text) { (success: Bool, error: Error?) in
+//            if let error = error {
+//                print(error.localizedDescription)
+//            } else if success {
+//                imageToPost.image = nil
+//                captionToPost.text = nil
+//                self.performSegue(withIdentifier: "HomeTabSegue", sender: sender)
+//            }
+//        }
     }
     
     
