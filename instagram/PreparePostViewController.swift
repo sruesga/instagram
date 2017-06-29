@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PhotoMapViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class PreparePostViewController: UIViewController {
 
     @IBOutlet weak var imageToPost: UIImageView!
     @IBOutlet weak var captionToPost: UITextField!
@@ -19,19 +19,6 @@ class PhotoMapViewController: UIViewController, UIImagePickerControllerDelegate,
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
-        let vc = UIImagePickerController()
-        vc.delegate = self
-        vc.allowsEditing = true
-        
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            print("Camera is available 📸")
-            vc.sourceType = .camera
-        } else {
-            print("Camera 🚫 available so we will use photo library instead")
-            vc.sourceType = .photoLibrary
-        }
-        self.present(vc, animated: true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,26 +35,15 @@ class PhotoMapViewController: UIViewController, UIImagePickerControllerDelegate,
                 self.imageToPost.image = nil
                 self.captionToPost.text = nil
  
-                let nav = self.tabBarController?.viewControllers?[0]
-                HomeViewController.postButtonHit = true
+                let nav = self.tabBarController?.viewControllers?[0] as! UINavigationController
+                let vc = nav.viewControllers[0] as! HomeViewController
+                vc.loadData()
                 self.tabBarController?.selectedViewController = nav
             }
         }
     }
     
     
-    func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [String : Any]) {
-        // Get the image captured by the UIImagePickerController
-        let originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-        let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
-        
-        // Do something with the images (based on your use case)
-        imageToPost.image = editedImage
-        
-        // Dismiss UIImagePickerController to go back to your original view controller
-        dismiss(animated: true, completion: nil)
-    }
     
     
     /*

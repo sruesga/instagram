@@ -166,7 +166,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="369.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q9W-1R-9IG" customClass="PFImageView">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="image_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="Q9W-1R-9IG" customClass="PFImageView">
                                                     <rect key="frame" x="0.0" y="28" width="375" height="261"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -212,7 +212,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bZb-Cc-IF4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="733.60000000000002" y="2033.433283358321"/>
+            <point key="canvasLocation" x="-383" y="2014"/>
         </scene>
         <!--ProfileViewController-->
         <scene sceneID="fQQ-ES-AIa">
@@ -241,12 +241,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="21J-s0-yBq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2822" y="2188"/>
+            <point key="canvasLocation" x="3658" y="2072"/>
         </scene>
-        <!--PhotoMapViewController-->
+        <!--PreparePostViewController-->
         <scene sceneID="SZ3-HQ-u7u">
             <objects>
-                <viewController title="PhotoMapViewController" id="9ox-mH-rQA" customClass="PhotoMapViewController" customModule="instagram" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="PreparePostViewController" id="9ox-mH-rQA" customClass="PreparePostViewController" customModule="instagram" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3rg-Vx-nPr"/>
                         <viewControllerLayoutGuide type="bottom" id="XvS-XP-oq6"/>
@@ -263,7 +263,7 @@
                                     <action selector="didHitPostButton:" destination="9ox-mH-rQA" eventType="touchUpInside" id="jTP-VS-RZv"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="672-DC-4dB">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="image_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="672-DC-4dB">
                                 <rect key="frame" x="0.0" y="91" width="375" height="234"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -277,8 +277,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Camera" id="yvo-WH-dVD"/>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="AxA-O2-lA2"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="captionToPost" destination="kLj-v3-naO" id="DD5-JY-nad"/>
@@ -287,7 +287,57 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pqa-Ve-rgN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1709.5999999999999" y="1325.4872563718143"/>
+            <point key="canvasLocation" x="2514" y="1535"/>
+        </scene>
+        <!--CameraViewController-->
+        <scene sceneID="vuJ-f9-cvG">
+            <objects>
+                <viewController title="CameraViewController" id="WIl-g5-mCM" customClass="CameraViewController" customModule="instagram" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Mfl-di-V61"/>
+                        <viewControllerLayoutGuide type="bottom" id="mpM-wi-G9y"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="FeX-LV-gfl" userLabel="baseView">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zkX-Dz-T8Q" userLabel="cameraView">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KXT-B3-aHt" userLabel="cameraButtonOverlayView">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="insta_camera_btn" translatesAutoresizingMaskIntoConstraints="NO" id="K6C-Qa-XMf">
+                                        <rect key="frame" x="158" y="534" width="58" height="59"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="xXV-Mt-RpA" appends="YES" id="mOp-vQ-bH1"/>
+                                        </connections>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Camera" selectedImage="insta_camera_btn" id="Sb9-Kr-9f8"/>
+                    <connections>
+                        <outlet property="cameraView" destination="zkX-Dz-T8Q" id="BLc-Ib-O2V"/>
+                        <segue destination="1Yy-Qy-Juk" kind="show" identifier="PreparePostSegue" id="FsI-Gz-s34"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gj1-7k-Adt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="xXV-Mt-RpA">
+                    <connections>
+                        <action selector="didTakePhoto:" destination="WIl-g5-mCM" id="WjJ-lp-Hvh"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="760.79999999999995" y="1533.2833583208396"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Llc-oH-wzL">
@@ -301,7 +351,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="Rm7-U2-LDF" kind="relationship" relationship="viewControllers" id="Nww-gx-pGp"/>
-                        <segue destination="9ox-mH-rQA" kind="relationship" relationship="viewControllers" id="x3e-2L-Cgy"/>
+                        <segue destination="WIl-g5-mCM" kind="relationship" relationship="viewControllers" id="P33-bo-DGp"/>
                         <segue destination="4rN-NB-Us4" kind="relationship" relationship="viewControllers" id="7Qp-c3-IPE"/>
                     </connections>
                 </tabBarController>
@@ -313,7 +363,7 @@
         <scene sceneID="xUk-JJ-PgU">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Rm7-U2-LDF" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" id="mMP-9M-Zx7"/>
+                    <tabBarItem key="tabBarItem" title="Home" selectedImage="feed_tab" id="mMP-9M-Zx7"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qaA-Cn-aRE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -326,13 +376,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HpQ-7S-Uil" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="710" y="1236"/>
+            <point key="canvasLocation" x="-407" y="1216"/>
         </scene>
         <!--Profile-->
         <scene sceneID="ehp-gz-jSI">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4rN-NB-Us4" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Profile" id="R9T-TM-bet"/>
+                    <tabBarItem key="tabBarItem" title="Profile" selectedImage="profile_tab" id="R9T-TM-bet"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="1dA-en-MXy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -345,9 +395,34 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5K1-uI-bFQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2821.5999999999999" y="1365.9670164917543"/>
+            <point key="canvasLocation" x="3658" y="1300"/>
+        </scene>
+        <!--Camera-->
+        <scene sceneID="K6y-wT-4uz">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1Yy-Qy-Juk" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Camera" selectedImage="insta_camera_btn" id="yvo-WH-dVD"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="0ci-uF-cyw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="9ox-mH-rQA" kind="relationship" relationship="rootViewController" id="iAg-2e-tXM"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h7T-nc-ook" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1575" y="1535"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="feed_tab" width="25" height="25"/>
+        <image name="image_placeholder" width="375" height="375"/>
+        <image name="insta_camera_btn" width="25" height="25"/>
+        <image name="profile_tab" width="25" height="25"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="S6q-jS-aZL"/>
     </inferredMetricsTieBreakers>

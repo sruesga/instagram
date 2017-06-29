@@ -13,8 +13,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     @IBOutlet weak var tableView: UITableView!
     
-    static var postButtonHit = false
-    
     
     var posts: [PFObject] = []
     var refreshControl: UIRefreshControl!
@@ -37,13 +35,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        if HomeViewController.postButtonHit {
-            self.loadData()
-            HomeViewController.postButtonHit = false
-        }
     }
     
     
