@@ -7,14 +7,13 @@
 //
 
 import UIKit
-import CameraManager
+import Fusuma
 
-
-class CameraViewController: UIViewController, UINavigationControllerDelegate {
+class CameraViewController: UIViewController, UINavigationControllerDelegate, FusumaDelegate {
 
     @IBOutlet weak var cameraView: UIView!
     
-    var cameraManager: CameraManager!
+//    var cameraManager: CameraManager!
     var myImage: UIImage!
 
     
@@ -24,12 +23,23 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate {
 
         // Do any additional setup after loading the view.
         
+        let fusuma = FusumaViewController()
+        fusuma.delegate = self
+        fusuma.hasVideo = true // If you want to let the users allow to use video.
+        self.present(fusuma, animated: true, completion: nil)
         
+//        fusumaTintColor: UIColor =  // tint color
+//        
+//        fusumaBackgroundColor: UIColor // background color
+//        
+//        fusumaCropImage:Bool // default is true for cropping the image
+
         
-        cameraManager = CameraManager()
-        cameraManager.addPreviewLayerToView(self.cameraView)
-        cameraManager.shouldEnableTapToFocus = true
-        cameraManager.shouldEnablePinchToZoom = true
+//        
+//        cameraManager = CameraManager()
+//        cameraManager.addPreviewLayerToView(self.cameraView)
+//        cameraManager.shouldEnableTapToFocus = true
+//        cameraManager.shouldEnablePinchToZoom = true
         
 //        cameraManager.cameraOutputMode = .stillImage
 //        cameraManager.cameraOutputQuality = .high
@@ -57,6 +67,23 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate {
         //        self.present(vc, animated: true, completion: nil)
 
     }
+    
+    
+    func fusumaImageSelected(_ image: UIImage, source: FusumaMode) {
+        
+    }
+    
+    func fusumaMultipleImageSelected(_ images: [UIImage], source: FusumaMode) {
+        
+    }
+    
+    func fusumaVideoCompleted(withFileURL fileURL: URL) {
+        
+    }
+    
+    func fusumaCameraRollUnauthorized() {
+        
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -65,14 +92,14 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate {
     
     
     @IBAction func didTakePhoto(_ sender: Any) {
-        cameraManager.capturePictureWithCompletion { (image: UIImage?, error: Error?) in
-            if let image = image {
-                self.myImage = image
-                self.performSegue(withIdentifier: "PreparePostSegue", sender: self)
-            } else {
-                print(error?.localizedDescription)
-            }
-        }
+//        cameraManager.capturePictureWithCompletion { (image: UIImage?, error: Error?) in
+//            if let image = image {
+//                self.myImage = image
+//                self.performSegue(withIdentifier: "PreparePostSegue", sender: self)
+//            } else {
+//                print(error?.localizedDescription)
+//            }
+//        }
     }
     
     

@@ -18,6 +18,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var posts: [PFObject] = []
     var refreshControl: UIRefreshControl!
     var isMoreDataLoading = false
+    var maxNumberOfPosts: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,11 +27,27 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.delegate = self
         tableView.dataSource = self
         
+        tableView.separatorStyle = .none
+        
+        
         loadData()
 
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
         tableView.insertSubview(refreshControl, at: 0)
+        
+        
+        
+        let query = PFQuery(className: "Post")
+        query.includeKey("author")
+        query.countObjectsInBackground { (total: Int32, error: Error?) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                print(total)
+                self.maxNumberOfPosts = Int(total)
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,7 +77,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     
-    func loadData(withLimit limit: Int = 10) {
+    func loadData(withLimit limit: Int = 15) {
         let query = PFQuery(className: "Post")
         query.order(byDescending: "createdAt")
         query.includeKey("author")
@@ -79,7 +96,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 print(error?.localizedDescription)
             }
         }
-
     }
     
     func refreshControlAction(_ refreshControl: UIRefreshControl) {
@@ -88,7 +104,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if (!isMoreDataLoading) {
+        if (!isMoreDataLoading && maxNumberOfPosts != nil && posts.count < maxNumberOfPosts) {
             // Calculate the position of one screen length before the bottom of the results
             let scrollViewContentHeight = tableView.contentSize.height
             let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
@@ -99,7 +115,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 isMoreDataLoading = true
                 
                 // Code to load more results
-                loadData()
+                loadData(withLimit: posts.count + 15)
             }
         }
     }

@@ -8,7 +8,8 @@ target 'instagram' do
   # Pods for instagram
    pod 'Parse'  
    pod 'ParseUI'
-   pod 'CameraManager', '~> 3.1'
+   pod 'Fusuma'
+
 
   target 'instagramTests' do
     inherit! :search_paths
