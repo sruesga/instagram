@@ -18,7 +18,7 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate, Fu
     var fusuma: FusumaViewController!
     var myImage: UIImage?
     var myVideo: URL?
-
+    var fusumaActive = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,11 +34,16 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate, Fu
         fusumaBackgroundColor = UIColor(hexString: "#FAFAFA", alpha: 1.0)!
         
         self.present(fusuma, animated: true, completion: nil)
+        fusumaActive = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if CameraViewController.postedOrCancelled {
+        if CameraViewController.postedOrCancelled || !fusumaActive {
             self.present(fusuma, animated: true, completion: nil)
+            fusumaActive = true
+        } else if fusumaActive {
+            self.tabBarController!.selectedIndex = 0
+            fusumaActive = false
         }
     }
     
@@ -81,42 +86,6 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate, Fu
         
         self.present(alert, animated: true, completion: nil)
     }
-    
-    
-    func fusumaDismissedWithImage(_ image: UIImage, source: FusumaMode) {
-        
-        switch source {
-            
-        case .camera:
-            
-            print("Called just after dismissed FusumaViewController using Camera")
-            
-        case .library:
-            
-            print("Called just after dismissed FusumaViewController using Camera Roll")
-            
-        default:
-            
-            print("Called just after dismissed FusumaViewController")
-        }
-    }
-    
-    func fusumaWillClosed() {
-        
-        print("Called when the close button is pressed")
-        self.tabBarController?.selectedIndex = 0
-    }
-    
-    func fusumaClosed() {
-        
-        print("Called when the FusumaViewController disappeared")
-        self.tabBarController!.selectedIndex = 0
-        self.navigationController!.popViewController(animated: true)
-//        self.navigationController!.popToRootViewController(animated: true)
-    }
-
-    
-    
     
     
     

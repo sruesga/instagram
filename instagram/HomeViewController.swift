@@ -68,7 +68,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as! PostCell
-        
+        cell.clear()
         let post = posts[indexPath.row]
         cell.instagramPost = post
 
@@ -119,6 +119,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
 
+    @IBAction func didTapUsername(_ sender: Any) {
+        self.tabBarController!.selectedIndex = 2
+    }
     
     
     /*

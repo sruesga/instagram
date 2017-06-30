@@ -14,19 +14,48 @@ class PostCell: UITableViewCell {
 
     
     @IBOutlet weak var topUsernameLabel: UILabel!
-    @IBOutlet weak var captionUsernameLabel: UILabel!
     @IBOutlet weak var captionLabel: UILabel!
     @IBOutlet weak var postedImage: PFImageView!
+    @IBOutlet weak var profilePicture: PFImageView!
     
     
     var instagramPost: PFObject! {
         didSet {
             self.postedImage.file = instagramPost["media"] as! PFFile
             self.postedImage.loadInBackground()
-            self.topUsernameLabel.text = (instagramPost["author"] as! PFUser).username!
-            self.captionUsernameLabel.text = topUsernameLabel.text
-            self.captionLabel.text = instagramPost["caption"] as? String
+            let username = (instagramPost["author"] as! PFUser).username!
+            self.topUsernameLabel.text = username
+            
+            
+            self.profilePicture.file = PFUser.current()?["profile_picture"] as? PFFile
+            self.profilePicture.loadInBackground()
+            self.profilePicture.layer.cornerRadius = self.profilePicture.frame.size.width / 2
+            self.profilePicture.clipsToBounds = true
+            
+            
+            if let description = instagramPost["caption"] as? String {
+                self.captionLabel.attributedText = attributedString(bolded: username, normal:  description)
+            }
         }
+    }
+    
+    
+    func attributedString(bolded:String, normal:String) -> NSAttributedString {
+        var normalString = NSMutableAttributedString(string: " " + normal)
+        
+        var attrs = [NSFontAttributeName : UIFont.boldSystemFont(ofSize: captionLabel.font.pointSize)]
+        
+        var boldString = NSMutableAttributedString(string: bolded, attributes: attrs)
+        
+        boldString.append(normalString)
+        return boldString
+    }
+    
+    public func clear() {
+        self.topUsernameLabel.text = nil
+        self.postedImage.file = nil
+        self.profilePicture.file = nil
+        self.captionLabel.attributedText = nil
     }
     
     
