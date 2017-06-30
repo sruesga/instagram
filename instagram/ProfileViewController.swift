@@ -8,10 +8,13 @@
 
 import UIKit
 import Parse
+import ParseUI
 
 class ProfileViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var userProfileImage: PFImageView!
 
     
     var posts: [PFObject] = []
@@ -44,6 +47,25 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
                 self.maxNumberOfPosts = Int(total)
             }
         }
+        
+        self.usernameLabel.text = PFUser.current()?.username
+        
+        self.userProfileImage.file = PFUser.current()?["profile_picture"] as? PFFile
+        self.userProfileImage.loadInBackground()
+        self.userProfileImage.layer.cornerRadius = self.userProfileImage.frame.size.width / 2
+        self.userProfileImage.clipsToBounds = true
+        
+        
+        
+        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        
+        layout.minimumInteritemSpacing  = 1
+        layout.minimumLineSpacing = 1
+        let cellsPerLine: CGFloat = 3
+        let interItemSpacingTotal = layout.minimumInteritemSpacing * (cellsPerLine - 1)
+        let width = collectionView.frame.size.width / cellsPerLine - interItemSpacingTotal / cellsPerLine
+        
+        layout.itemSize = CGSize(width: width, height: width * 3/2)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,17 +86,15 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        <#code#>
-    }
-    
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = collectionView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as! PostCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCell", for: indexPath) as! ProfileCell
+        let post = posts[indexPath.item]
         cell.clear()
-        let post = posts[indexPath.row]
         cell.instagramPost = post
-        
+        cell.image.file = post["media"] as! PFFile
+        cell.image.loadInBackground()
+
         return cell
+
     }
     
     
@@ -135,14 +155,17 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
 
     
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+        
+        let vc = segue.destination as! DetailViewController
+        let cell = sender as! ProfileCell
+        let post = cell.instagramPost
+        vc.post = post
     }
-    */
-
 }
