@@ -44,7 +44,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             if let error = error {
                 print(error.localizedDescription)
             } else {
-                print(total)
                 self.maxNumberOfPosts = Int(total)
             }
         }

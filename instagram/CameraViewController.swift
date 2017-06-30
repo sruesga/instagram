@@ -8,69 +8,45 @@
 
 import UIKit
 import Fusuma
+import SwiftHEXColors
 
 class CameraViewController: UIViewController, UINavigationControllerDelegate, FusumaDelegate {
 
-    @IBOutlet weak var cameraView: UIView!
-    
-//    var cameraManager: CameraManager!
-    var myImage: UIImage!
+    static var postedOrCancelled = false
 
     
+    var fusuma: FusumaViewController!
+    var myImage: UIImage?
+    var myVideo: URL?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
-        let fusuma = FusumaViewController()
+        fusuma = FusumaViewController()
         fusuma.delegate = self
-        fusuma.hasVideo = true // If you want to let the users allow to use video.
+        fusuma.hasVideo = false // If you want to let the users allow to use video.
+
+        fusumaBaseTintColor = UIColor(hexString: "#607D8B", alpha: 1.0)!
+        fusumaTintColor = UIColor(hexString: "#81D4FA", alpha: 1.0)!
+        fusumaBackgroundColor = UIColor(hexString: "#FAFAFA", alpha: 1.0)!
+        
         self.present(fusuma, animated: true, completion: nil)
-        
-//        fusumaTintColor: UIColor =  // tint color
-//        
-//        fusumaBackgroundColor: UIColor // background color
-//        
-//        fusumaCropImage:Bool // default is true for cropping the image
-
-        
-//        
-//        cameraManager = CameraManager()
-//        cameraManager.addPreviewLayerToView(self.cameraView)
-//        cameraManager.shouldEnableTapToFocus = true
-//        cameraManager.shouldEnablePinchToZoom = true
-        
-//        cameraManager.cameraOutputMode = .stillImage
-//        cameraManager.cameraOutputQuality = .high
-//        cameraManager.focusMode = .continuousAutoFocus
-//        cameraManager.exposureMode = .continuousAutoExposure
-//        cameraManager.flashMode = .auto
-//        cameraManager.writeFilesToPhoneLibrary = true
-//        cameraManager.animateShutter = false
-//        cameraManager.animateCameraDeviceChange = false
+    }
     
-        
-        
-        
-        //        let vc = UIImagePickerController()
-        //        vc.delegate = self
-        //        vc.allowsEditing = true
-        //
-        //        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-        //            print("Camera is available 📸")
-        //            vc.sourceType = .camera
-        //        } else {
-        //            print("Camera 🚫 available so we will use photo library instead")
-        //            vc.sourceType = .photoLibrary
-        //        }
-        //        self.present(vc, animated: true, completion: nil)
-
+    override func viewWillAppear(_ animated: Bool) {
+        if CameraViewController.postedOrCancelled {
+            self.present(fusuma, animated: true, completion: nil)
+        }
     }
     
     
     func fusumaImageSelected(_ image: UIImage, source: FusumaMode) {
-        
+        self.myImage = image
+        self.performSegue(withIdentifier: "PreparePostSegue", sender: self)
+        self.myImage = nil
     }
     
     func fusumaMultipleImageSelected(_ images: [UIImage], source: FusumaMode) {
@@ -78,51 +54,77 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate, Fu
     }
     
     func fusumaVideoCompleted(withFileURL fileURL: URL) {
-        
+        self.myVideo = fileURL
+        self.performSegue(withIdentifier: "PreparePostSegue", sender: self)
+        self.myVideo = nil
     }
     
     func fusumaCameraRollUnauthorized() {
         
+        print("Camera roll unauthorized")
+        
+        let alert = UIAlertController(title: "Access Requested",
+                                      message: "Saving image needs to access your photo album",
+                                      preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Settings", style: .default) { (action) -> Void in
+            
+            if let url = URL(string:UIApplicationOpenSettingsURLString) {
+                
+                UIApplication.shared.openURL(url)
+            }
+        })
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
+            
+        })
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    
+    func fusumaDismissedWithImage(_ image: UIImage, source: FusumaMode) {
+        
+        switch source {
+            
+        case .camera:
+            
+            print("Called just after dismissed FusumaViewController using Camera")
+            
+        case .library:
+            
+            print("Called just after dismissed FusumaViewController using Camera Roll")
+            
+        default:
+            
+            print("Called just after dismissed FusumaViewController")
+        }
+    }
+    
+    func fusumaWillClosed() {
+        
+        print("Called when the close button is pressed")
+        self.tabBarController?.selectedIndex = 0
+    }
+    
+    func fusumaClosed() {
+        
+        print("Called when the FusumaViewController disappeared")
+        self.tabBarController!.selectedIndex = 0
+        self.navigationController!.popViewController(animated: true)
+//        self.navigationController!.popToRootViewController(animated: true)
     }
 
+    
+    
+    
+    
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
-    @IBAction func didTakePhoto(_ sender: Any) {
-//        cameraManager.capturePictureWithCompletion { (image: UIImage?, error: Error?) in
-//            if let image = image {
-//                self.myImage = image
-//                self.performSegue(withIdentifier: "PreparePostSegue", sender: self)
-//            } else {
-//                print(error?.localizedDescription)
-//            }
-//        }
-    }
-    
-    
-    
-    
-//    
-//    func imagePickerController(_ picker: UIImagePickerController,
-//                               didFinishPickingMediaWithInfo info: [String : Any]) {
-//        // Get the image captured by the UIImagePickerController
-//        let originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-//        let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
-//        
-//        // Do something with the images (based on your use case)
-////        imageToPost.image = editedImage
-//        
-//        // Dismiss UIImagePickerController to go back to your original view controller
-//        dismiss(animated: true, completion: nil)
-//    }
-//    
-
-    
-
-    
     
     
     // MARK: - Navigation

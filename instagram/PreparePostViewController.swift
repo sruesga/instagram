@@ -12,6 +12,9 @@ class PreparePostViewController: UIViewController {
 
     @IBOutlet weak var imageToPost: UIImageView!
     @IBOutlet weak var captionToPost: UITextField!
+    @IBOutlet weak var blurView: UIVisualEffectView!
+    @IBOutlet weak var previewImage: UIImageView!
+
     
     var image: UIImage!
     
@@ -20,6 +23,11 @@ class PreparePostViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         imageToPost.image = self.image
+        previewImage.image = self.image
+        
+        
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+        blurView = UIVisualEffectView(effect: blurEffect)
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,22 +46,48 @@ class PreparePostViewController: UIViewController {
                 print("posting")
                 
                 HomeViewController.newPost = true
-                self.tabBarController!.selectedIndex = 0
-                let nav = self.navigationController!
-                nav.popViewController(animated: true)
-                
-//                let tab = self.navigationController as! UINavigationController
-//                let vc = nav.tabBarController?.viewControllers?[0] as! HomeViewController
-//                vc.loadData()
-//                nav.tabBarController?.selectedIndex = 0
-//                print("posted")
+                self.postedOrCancelled()
             }
         }
     }
     
+    @IBAction func didHitCancelButton(_ sender: Any) {
+        postedOrCancelled()
+    }
+    
+    private func postedOrCancelled() {
+        CameraViewController.postedOrCancelled = true
+        self.tabBarController!.selectedIndex = 0
+        self.navigationController!.popToRootViewController(animated: true)
+    }
+    
+    @IBAction func didTapPhoto(_ sender: Any) {
+        displayView(blurView)
+    }
     
     @IBAction func didTapOutsideCaption(_ sender: Any) {
         view.endEditing(true)
+    }
+    
+    @IBAction func didTapOnBlurView(_ sender: Any) {
+        hideView(blurView)
+    }
+    
+    private func displayView(_ onView: UIView) {
+        onView.alpha = 0.0
+        UIView.animate(withDuration: 0.5, animations: { () -> Void
+            in
+            onView.alpha = 1.0
+            onView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        })
+    }
+    
+    
+    private func hideView(_ onView: UIView) {
+        UIView.animate(withDuration: 0.3, animations: { () -> Void in
+            onView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+            onView.alpha = 0.0
+        })
     }
     
     
@@ -64,6 +98,5 @@ class PreparePostViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-  
     }*/
 }

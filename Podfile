@@ -9,6 +9,9 @@ target 'instagram' do
    pod 'Parse'  
    pod 'ParseUI'
    pod 'Fusuma'
+   pod 'SwiftHEXColors'
+
+
 
 
   target 'instagramTests' do
