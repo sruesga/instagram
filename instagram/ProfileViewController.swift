@@ -65,7 +65,7 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
         let interItemSpacingTotal = layout.minimumInteritemSpacing * (cellsPerLine - 1)
         let width = collectionView.frame.size.width / cellsPerLine - interItemSpacingTotal / cellsPerLine
         
-        layout.itemSize = CGSize(width: width, height: width * 3/2)
+        layout.itemSize = CGSize(width: width, height: width)
     }
     
     override func viewWillAppear(_ animated: Bool) {

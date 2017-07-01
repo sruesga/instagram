@@ -17,6 +17,7 @@ class PostCell: UITableViewCell {
     @IBOutlet weak var captionLabel: UILabel!
     @IBOutlet weak var postedImage: PFImageView!
     @IBOutlet weak var profilePicture: PFImageView!
+    @IBOutlet weak var likeButton: UIButton!
     
     
     var instagramPost: PFObject! {
@@ -31,6 +32,10 @@ class PostCell: UITableViewCell {
             self.profilePicture.loadInBackground()
             self.profilePicture.layer.cornerRadius = self.profilePicture.frame.size.width / 2
             self.profilePicture.clipsToBounds = true
+            
+            if let liked = instagramPost["liked"] as? Bool {
+                self.likeButton.setImage(UIImage(named: "redLike"), for: .normal)
+            }
             
             
             if let description = instagramPost["caption"] as? String {

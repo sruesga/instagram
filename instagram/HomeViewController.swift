@@ -122,7 +122,25 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBAction func didTapUsername(_ sender: Any) {
         self.tabBarController!.selectedIndex = 2
     }
+    @IBAction func likeButton(_ sender: Any) {
+        
+        let buttonPosition = (sender as AnyObject).convert(CGPoint(), to:tableView)
+        let indexPath = tableView.indexPathForRow(at:buttonPosition)!
+        
+        let post = posts[indexPath.row]
+        
+        let button = sender as! UIButton
+        if (button.currentImage?.isEqual(UIImage(named: "normalLike")))! {
+            button.setImage(UIImage(named: "redLike"), for: .normal)
+            post["liked"] = true
+        } else {
+            button.setImage(UIImage(named: "normalLike"), for: .normal)
+            post["liked"] = false
+        }
+    }
     
+    @IBAction func commentButton(_ sender: Any) {
+    }
     
     // MARK: - Navigation
 

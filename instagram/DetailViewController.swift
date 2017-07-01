@@ -16,6 +16,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var imagePost: PFImageView!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var captionLabel: UILabel!
+    @IBOutlet weak var likeButton: UIButton!
 
     
     var post: PFObject!
@@ -29,6 +30,11 @@ class DetailViewController: UIViewController {
         self.usernameLabel.text = (post["author"] as! PFUser).username!
         self.captionLabel.text = post["caption"] as? String
         
+        
+        if let liked = post["liked"] as? Bool {
+            self.likeButton.setImage(UIImage(named: "redLike"), for: .normal)
+        }
+
         
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM d, yyyy"
