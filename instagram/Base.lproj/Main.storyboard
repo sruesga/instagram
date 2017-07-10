@@ -626,12 +626,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="comment" width="64" height="64"/>
+        <image name="comment" width="128" height="128"/>
         <image name="feed_tab" width="25" height="25"/>
         <image name="image_placeholder" width="375" height="375"/>
         <image name="insta_camera_btn" width="25" height="25"/>
-        <image name="normalLike" width="64" height="64"/>
-        <image name="old-instagram-logo" width="590" height="225"/>
+        <image name="normalLike" width="128" height="128"/>
+        <image name="old-instagram-logo" width="304" height="101"/>
         <image name="profile_tab" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
