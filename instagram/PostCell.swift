@@ -33,7 +33,7 @@ class PostCell: UITableViewCell {
             self.profilePicture.layer.cornerRadius = self.profilePicture.frame.size.width / 2
             self.profilePicture.clipsToBounds = true
             
-            if let liked = instagramPost["liked"] as? Bool {
+            if let liked = instagramPost["liked"] as? Bool, liked == true {
                 self.likeButton.setImage(UIImage(named: "redLike"), for: .normal)
             }
             
