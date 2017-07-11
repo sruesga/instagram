@@ -31,7 +31,7 @@ class DetailViewController: UIViewController {
         self.captionLabel.text = post["caption"] as? String
         
         
-        if let liked = post["liked"] as? Bool {
+        if let liked = post["liked"] as? Bool, liked == true {
             self.likeButton.setImage(UIImage(named: "redLike"), for: .normal)
         }
 

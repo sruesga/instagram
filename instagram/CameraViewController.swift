@@ -18,7 +18,7 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate, Fu
     var fusuma: FusumaViewController!
     var myImage: UIImage?
     var myVideo: URL?
-    var fusumaActive = false
+    var fusumaActive = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,13 +34,13 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate, Fu
         fusumaBackgroundColor = UIColor(hexString: "#FAFAFA", alpha: 1.0)!
         
         self.present(fusuma, animated: true, completion: nil)
-        fusumaActive = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         if CameraViewController.postedOrCancelled || !fusumaActive {
             self.present(fusuma, animated: true, completion: nil)
             fusumaActive = true
+            CameraViewController.postedOrCancelled = false
         } else if fusumaActive {
             self.tabBarController!.selectedIndex = 0
             fusumaActive = false
@@ -50,6 +50,7 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate, Fu
     
     func fusumaImageSelected(_ image: UIImage, source: FusumaMode) {
         self.myImage = image
+        CameraViewController.postedOrCancelled = true
         self.performSegue(withIdentifier: "PreparePostSegue", sender: self)
         self.myImage = nil
     }
